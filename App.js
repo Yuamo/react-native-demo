@@ -1,7 +1,7 @@
 import React,{ Component, PropTypes }  from 'react';
 import {AppRegistry, Text, View, Button} from 'react-native';
 import {StackNavigator} from 'react-navigation';
-
+import FlexBox from './App/FlexBox'
 class ChatScreen extends  Component {
   static navigationOptions = {
     title: 'Chat with Lucy'
@@ -10,6 +10,7 @@ class ChatScreen extends  Component {
     return (
       <View>
         <Text>Chat with Lucy{this.state}</Text>
+        <FlexBox/>
       </View>
     );
   }
