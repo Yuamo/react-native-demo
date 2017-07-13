@@ -1,11 +1,29 @@
-import React, {Component, PropTypes} from 'react';
-import {Text, View, Button,Image,StyleSheet} from 'react-native';
 
-export default class flexBox extends Component {
+import React, {Component} from 'react';
+import {
+  AppRegistry,
+  Image,
+  Button,
+  StyleSheet,
+  View,
+  Text
+} from 'react-native';
+
+class MeScreen extends Component {
+  static navigationOptions = {
+    tabBarLabel: '我的',
+    tabBarIcon: ({tintColor}) => (<Image
+      source={require('../Assets/Img/iconfont-shipin.png')}
+      style={[
+      styles.icon, {
+        tintColor: tintColor
+      }
+    ]}/>)
+  };
+
   render() {
     return (
-     // Try setting `flexDirection` to `column`.
-      <View style={{ 
+       <View style={{ 
         flexDirection: 'row-reverse',
         justifyContent: 'center',
         alignItems: 'center',
@@ -29,16 +47,19 @@ export default class flexBox extends Component {
   }
 }
 
+ 
+
 const styles = StyleSheet.create({
-  overlay:{
-    backgroundColor:'rgba(0,0,0,0.3)'
+  icon: {
+    width: 24,
+    height: 24
   },
-  image: {
-    width:50,
-    height:50
-  },
-  backgroundImage:{
-    flex:1,
-    resizeMode: Image.resizeMode.contain
+  content: {
+    flex: 1,
+    flexDirection: 'column',
+    backgroundColor: 'rgba(0,0,0,0.1)',
+    paddingTop: 0
   }
 });
+
+export default MeScreen

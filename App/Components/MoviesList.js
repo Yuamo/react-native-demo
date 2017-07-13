@@ -43,7 +43,7 @@ class MoviesList extends Component {
 
   _onPressButton=()=>{
       Alert.alert(
-        `你点击了按钮`,
+        `你点击了按钮不过你点了也没用`,
         'Hello World！',
         [
             {text: '以后再说', onPress: () => console.log('Ask me later pressed')},
