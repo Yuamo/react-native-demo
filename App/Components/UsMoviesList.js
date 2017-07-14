@@ -14,24 +14,35 @@ import {
   TouchableOpacity,
   Alert
 } from 'react-native';
-import movies from './dataUs'
+import getMoviesFromApi from './ajaxUtil'
+
 
 class MoviesList extends Component {
   constructor(props) {
     super(props);
 
-    let dataSource = new ListView.DataSource({
-      rowHasChanged: (row1, row2) => row1 != row2
-    });
     this.state = {
-      movies: dataSource.cloneWithRows(movies),
+      movies: [],
       flag: false
     }
   }
 
+  async componentWillMount() {
+    let dataSource = new ListView.DataSource({
+      rowHasChanged: (row1, row2) => row1 != row2
+    });
+    let movies = await getMoviesFromApi('https://api.douban.com/v2/movie/us_box')
+    console.log(movies)
+    this.setState({
+      movies: dataSource.cloneWithRows(movies)
+    })
+     this.setState({'flag': true})
+  }
+
+
   componentDidMount() {
     this.timer = setTimeout(() => {
-      this.setState({'flag': true})
+      // this.setState({'flag': true})
       console.log('把一个定时器的引用挂在this上');
     }, 1000);
   }

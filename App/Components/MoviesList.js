@@ -14,26 +14,36 @@ import {
   TouchableOpacity,
   Alert
 } from 'react-native';
-import movies from './data'
+// import movies from './data'
+import getMoviesFromApi from './ajaxUtil'
 
 class MoviesList extends Component {
   constructor(props) {
     super(props);
 
-    let dataSource = new ListView.DataSource({
-      rowHasChanged: (row1, row2) => row1 != row2
-    });
     this.state = {
-      movies: dataSource.cloneWithRows(movies),
+      movies: [],
       flag: false
     }
   }
 
+  async componentWillMount() {
+    let dataSource = new ListView.DataSource({
+      rowHasChanged: (row1, row2) => row1 != row2
+    });
+    let movies = await getMoviesFromApi('https://api.douban.com/v2/movie/top250')
+    console.log(movies)
+    this.setState({
+      movies: dataSource.cloneWithRows(movies)
+    })
+     this.setState({'flag': true})
+  }
+
   componentDidMount() {
     this.timer = setTimeout(() => {
-      this.setState({'flag': true})
+      // this.setState({'flag': true})
       console.log('把一个定时器的引用挂在this上');
-    }, 1000);
+    }, 5000);
   }
   componentWillUnmount() {
     // 请注意Un"m"ount的m是小写 如果存在this.timer，则使用clearTimeout清空。
@@ -41,35 +51,26 @@ class MoviesList extends Component {
     this.timer && clearTimeout(this.timer);
   }
 
-  _onPressButton=()=>{
-      Alert.alert(
-        `你点击了按钮不过你点了也没用`,
-        'Hello World！',
-        [
-            {text: '以后再说', onPress: () => console.log('Ask me later pressed')},
-            {text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-            {text: '确定', onPress: () => console.log('OK Pressed')},
-        ]
-    )
-  }
+  _onPressButton = () => {}
 
-movieList(movie) {
+  movieList(movie) {
     return (
-      <TouchableHighlight
-      underlayColor="rgba(34,26,38,0.5)"  // 当触摸时的颜色
-           onPress={
-        ()=> {
-          Alert.alert(
-              `你点击了按钮`,
-              'Hello World！',
-              [
-                  {text: '以后再说', onPress: () => console.log('Ask me later pressed')},
-                  {text: '取消', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-                  {text: '确定', onPress: () => console.log('OK Pressed')},
-              ]
-          )
-        }
-    }>
+      <TouchableHighlight underlayColor="rgba(34,26,38,0.5)" // 当触摸时的颜色
+  onPress={() => {
+        Alert.alert(`你点击了按钮`, 'Hello World！', [
+          {
+            text: '以后再说',
+            onPress: () => console.log('Ask me later pressed')
+          }, {
+            text: '取消',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel'
+          }, {
+            text: '确定',
+            onPress: () => console.log('OK Pressed')
+          }
+        ])
+      }}>
         <View style={styles.containerItem}>
           <Image
             source={{
@@ -96,9 +97,9 @@ movieList(movie) {
       </TouchableHighlight>
     );
   }
-  
+
   render() {
-    if(!this.state.flag){
+    if (!this.state.flag) {
       return (
         <View style={styles.containerItem}>
           <View style={styles.load}>
@@ -106,10 +107,9 @@ movieList(movie) {
               加载中。。。
             </Text>*/}
             <ActivityIndicator
-            animating={this.state.animating}
-            size="large" 
-            color='#008dee'
-            />
+              animating={this.state.animating}
+              size="large"
+              color='#008dee'/>
           </View>
         </View>
       )
@@ -129,10 +129,10 @@ movieList(movie) {
 }
 
 const styles = StyleSheet.create({
-   centering: {
+  centering: {
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 8,
+    padding: 8
   },
   load: {
     flexDirection: 'row',
