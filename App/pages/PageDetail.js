@@ -9,13 +9,14 @@ import {
 } from 'react-native';
 class pageDetail extends Component {
   static navigationOptions = {
-    drawerLabel: 'Home',
-    drawerIcon: ({ tintColor }) => (
-      <Image
-        source={require('./chats-icon.png')}
-        style={[styles.icon, {tintColor: tintColor}]}
-      />
-    ),
+    tabBarLabel: '主页',
+    tabBarIcon: ({tintColor}) => (<Image
+      source={require('../Assets/Img/home.png')}
+      style={[
+      styles.icon, {
+        tintColor: tintColor
+      }
+    ]}/>)
   };
 
   constructor(props) {

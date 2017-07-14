@@ -60,9 +60,16 @@ const styles = StyleSheet.create({
 
 
 class PageDetail extends React.Component {
-  static navigationOptions = {
-    title: 'Home',
-  }
+   static navigationOptions = {
+    tabBarLabel: '主页',
+    tabBarIcon: ({tintColor}) => (<Image
+      source={require('../Assets/Img/home.png')}
+      style={[
+      styles.icon, {
+        tintColor: tintColor
+      }
+    ]}/>)
+  };
 
   render() {
     return (
