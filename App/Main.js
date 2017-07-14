@@ -44,6 +44,6 @@ export default MyApp = TabNavigator({
   },
   initialRouteName: 'Home', // 初始装载 默认装载第一个
   tabBarPosition: 'bottom', // tabbar显示位置安卓默认 top  苹果默认bottom
-  swipeEnabled: false, // 是否允许标签之间刷卡
+  swipeEnabled: true, // 是否允许标签之间滑动切换
   lazy: true, // 懒加载图标
 });
