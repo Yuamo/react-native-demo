@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import MoviesList from '../Components/MoviesList'
 import TitleBar from '../Components/TitleBar'
+import {StackNavigator, TabNavigator} from 'react-navigation';
 
 class MyHomeScreen extends Component {
   static navigationOptions = {
@@ -30,7 +31,11 @@ class MyHomeScreen extends Component {
         {/*<Button
           onPress={() => this.props.navigation.navigate('UsMovie')}
           title="Go to notifications"/>*/}
-        <TitleBar name="主 页" fl="../Assets/Img/home.png"/>
+        <TitleBar name="主 页" />
+        <Button
+        onPress={() => this.props.navigation.navigate('Profile', {name: 'Lucy'})}
+        title="Go to Lucy's profile"
+        />
         <MoviesList/>
       </View>
     );
@@ -52,4 +57,41 @@ const styles = StyleSheet.create({
   }
 });
 
-export default MyHomeScreen
+
+
+class PageDetail extends React.Component {
+  static navigationOptions = {
+    title: 'Home',
+  }
+
+  render() {
+    return (
+      <Button
+        onPress={() => this.props.navigation.navigate('Home', {name: 'Lucy'})}
+        title="Go to Lucy's profile"
+      />
+    );
+  }
+}
+
+const ModalStack = StackNavigator({
+  Home: {
+    screen: MyHomeScreen,
+  },
+  Profile: {
+    path: 'people/:name',
+    screen: PageDetail,
+  },
+},{
+  navigationOptions:{  // 当行图样式设置
+    title: '1',
+    headerTitle :'2',
+    visible:true,
+    headerBackTitle: '3',
+    headerTintColor :'red',  
+  },
+  headerMode:'none', // 显示导航头
+  mode: 'card',
+});
+
+export default ModalStack

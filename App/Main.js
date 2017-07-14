@@ -30,7 +30,7 @@ export default MyApp = TabNavigator({
     activeTintColor: '#ffeeff', // 图标选中时显示
     inactiveTintColor: '#332233', // 图标未选中时显示
     showIcon: true, // 是否显示icon图标  默认不显示 ****
-    indicatorStyle: {
+    indicatorStyle: {  
       height: 0
     },
     pressColor: '0.3',
