@@ -36,7 +36,7 @@ class MoviesList extends Component {
     this.setState({
       movies: dataSource.cloneWithRows(movies)
     })
-     this.setState({'flag': true})
+    this.setState({'flag': true})
   }
 
   componentDidMount() {
@@ -51,26 +51,26 @@ class MoviesList extends Component {
     this.timer && clearTimeout(this.timer);
   }
 
-  _onPressButton = () => {}
+  _onPressButton() {
+    Alert.alert(`你点击了按钮`, 'Hello World！', [
+      {
+        text: '以后再说',
+        onPress: () => console.log('Ask me later pressed')
+      }, {
+        text: '取消',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel'
+      }, {
+        text: '确定',
+        onPress: () => console.log('OK Pressed')
+      }
+    ])
+  }
 
   movieList(movie) {
     return (
       <TouchableHighlight underlayColor="rgba(34,26,38,0.5)" // 当触摸时的颜色
-  onPress={() => {
-        Alert.alert(`你点击了按钮`, 'Hello World！', [
-          {
-            text: '以后再说',
-            onPress: () => console.log('Ask me later pressed')
-          }, {
-            text: '取消',
-            onPress: () => console.log('Cancel Pressed'),
-            style: 'cancel'
-          }, {
-            text: '确定',
-            onPress: () => console.log('OK Pressed')
-          }
-        ])
-      }}>
+  onPress={this._onPressButton}>
         <View style={styles.containerItem}>
           <Image
             source={{
@@ -121,7 +121,9 @@ class MoviesList extends Component {
       style={styles.img} />*/}
         <ListView
           dataSource={this.state.movies}
-          renderRow={this.movieList}
+          renderRow={this
+          .movieList
+          .bind(this)}
           style={styles.titleText}/>
       </View>
     );
